@@ -24,9 +24,9 @@ module.exports = {
       filename: "./index.html"
     })
   ],
+  devServer: {
+    port: 8087,
+    historyApiFallback: true
+  },
   devtool: "source-map",
-  resolve: {
-    extensions: [".js", ".jsx"],
-    modules: [path.resolve("./src"), path.resolve("./node_modules")]
-  }
 };

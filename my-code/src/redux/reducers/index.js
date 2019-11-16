@@ -3,7 +3,7 @@ import change from '../../utils/immutable';
 
 const initialState = {
   test: 'test initial',
-}
+};
 
 export default function testReducer(state = initialState, action) {
   switch (action.type) {
@@ -12,8 +12,6 @@ export default function testReducer(state = initialState, action) {
       return change(state, { test });
     }
     default:
-      state;
+      return state;
   }
-
-  return state;
 }

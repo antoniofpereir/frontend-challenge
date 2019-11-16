@@ -9,21 +9,20 @@ class App extends React.Component {
 
   render() {
     return (
-      <div>Test value is {this.props.test}</div>
+      <div>
+Test value is
+        {this.props.test}
+      </div>
     );
   }
 }
 
-const mapStateToProps = state => {
-  return {
-    test: state.test,
-  };
-};
+const mapStateToProps = (state) => ({
+  test: state.test,
+});
 
-const mapDispatchToProps = dispatch => {
-  return {
-    changeTestValue: (newTestValue) => dispatch(changeTestValue(newTestValue)),
-  }
-}
+const mapDispatchToProps = (dispatch) => ({
+  changeTestValue: (newTestValue) => dispatch(changeTestValue(newTestValue)),
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

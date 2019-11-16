@@ -5,4 +5,4 @@ export function changeTestValue(newTestValue) {
     type: ACTIONS.CHANGE_TEST_VALUE,
     payload: newTestValue,
   };
-};
+}

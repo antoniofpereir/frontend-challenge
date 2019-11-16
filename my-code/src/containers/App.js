@@ -1,27 +1,29 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { changeTestValue } from '../redux/actions/index';
+import { searchMovie } from '../redux/actions/movies';
 
 class App extends React.Component {
   componentDidMount() {
     this.props.changeTestValue('new test value');
+    this.props.searchMovie('test')
   }
 
   render() {
     return (
       <div>
-Test value is
-        {this.props.test}
+        {`Test value is ${this.props.test}`}
       </div>
     );
   }
 }
 
 const mapStateToProps = (state) => ({
-  test: state.test,
+  movies: state.moviesData,
 });
 
 const mapDispatchToProps = (dispatch) => ({
+  searchMovie: searchValue => dispatch(searchMovie(searchValue)),
   changeTestValue: (newTestValue) => dispatch(changeTestValue(newTestValue)),
 });
 

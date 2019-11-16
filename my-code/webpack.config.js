@@ -1,4 +1,5 @@
 const HtmlWebPackPlugin = require('html-webpack-plugin');
+const Dotenv = require('dotenv-webpack');
 const path = require('path');
 
 module.exports = {
@@ -23,6 +24,7 @@ module.exports = {
       template: './dist/index.html',
       filename: './index.html',
     }),
+    new Dotenv(),
   ],
   devServer: {
     port: 8087,

@@ -1,33 +1,20 @@
 import React from 'react';
-import { connect } from 'react-redux';
-import { changeTestValue } from '../redux/actions/index';
-import { searchMovie, getMovieInformation } from '../redux/actions/movies';
+import { Router, Route } from 'react-router-dom';
 
-class App extends React.Component {
-  componentDidMount() {
-    this.props.changeTestValue('new test value');
-    this.props.searchMovie('dark kni');
-    this.props.getMovieInformation('tt1285016');
-    console.log(this.props.movies)
-  }
+/* components */
+import MovieSearch from '../containers/MovieSearch';
+import MoviePage from '../containers/MoviePage';
 
-  render() {
-    return (
-      <div>
-        {`Movie: ${this.props.movies.movieData.Title}`}
-      </div>
-    );
-  }
+/* utils */
+import history from '../utils/history';
+
+function App() {
+  return (
+    <Router history={history}>
+      <Route exact path="/" component={MovieSearch} />
+      <Route exact path="/movie" component={MoviePage} />
+    </Router>
+  );
 }
 
-const mapStateToProps = (state) => ({
-  movies: state.moviesData,
-});
-
-const mapDispatchToProps = (dispatch) => ({
-  getMovieInformation: movieId => dispatch(getMovieInformation(movieId)),
-  searchMovie: searchValue => dispatch(searchMovie(searchValue)),
-  changeTestValue: (newTestValue) => dispatch(changeTestValue(newTestValue)),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default App;

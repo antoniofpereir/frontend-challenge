@@ -1,0 +1,10 @@
+.container {
+  padding: 8px
+}
+
+.previewImg {
+  border-radius: 4px;
+  width: 150px;
+  height: 222px;
+  cursor: pointer;
+}

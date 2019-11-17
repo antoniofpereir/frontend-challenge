@@ -34,7 +34,7 @@ export function searchMovie(searchValue) {
     try {
       const response = await fetch(`http://www.omdbapi.com/?apikey=${apiKey}&s=${searchValue}`);
       const responseJson = await response.json();
-      dispatch(moviesSearchSuccess(responseJson.Search));
+      await dispatch(moviesSearchSuccess(responseJson.Search));
     } catch (error) {
       console.error(error);
       dispatch(moviesError(error));
@@ -49,7 +49,7 @@ export function getMovieInformation(movieId) {
     try {
       const response = await fetch(`http://www.omdbapi.com/?apikey=${apiKey}&i=${movieId}`);
       const responseJson = await response.json();
-      dispatch(movieInformationSuccess(responseJson));
+      await dispatch(movieInformationSuccess(responseJson));
     } catch (error) {
       console.error(error);
       dispatch(moviesError(error));

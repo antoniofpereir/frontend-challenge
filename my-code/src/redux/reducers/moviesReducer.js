@@ -5,6 +5,7 @@ const initialState = {
   omdbApiKey: process.env.OMDB_API_KEY,
   isLoading: false,
   moviesList: [],
+  movieData: {},
   hasErrored: false,
 };
 
@@ -18,6 +19,15 @@ export default function moviesData(state = initialState, action) {
       return change(state,
         {
           isLoading,
+          moviesList: action.payload,
+        });
+    }
+    case MOVIES_ACTIONS.MOVIES_INFORMATION_SUCCESS: {
+      const isLoading = false;
+      return change(state,
+        {
+          isLoading,
+          movieData: action.payload,
         });
     }
     case MOVIES_ACTIONS.MOVIES_SEARCH_ERROR: {

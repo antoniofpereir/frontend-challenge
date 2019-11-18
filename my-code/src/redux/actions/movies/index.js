@@ -2,13 +2,13 @@ import * as MOVIES_ACTIONS from './actionTypes';
 
 export function moviesReset() {
   return {
-    type: MOVIES_ACTIONS.MOVIES_DATA_RESET
+    type: MOVIES_ACTIONS.MOVIES_DATA_RESET,
   };
 }
 
 function moviesLoading() {
   return {
-    type: MOVIES_ACTIONS.MOVIES_SEARCH_LOADING
+    type: MOVIES_ACTIONS.MOVIES_SEARCH_LOADING,
   };
 }
 
@@ -66,7 +66,7 @@ export function searchMovie(searchValue) {
       console.error(error);
       dispatch(moviesError(error));
     }
-  }
+  };
 }
 
 export function getMovieInformation(movieId) {
@@ -80,5 +80,5 @@ export function getMovieInformation(movieId) {
       console.error(error);
       dispatch(moviesError(error));
     }
-  }
+  };
 }

@@ -21,7 +21,7 @@ export default function moviesData(state = initialState, action) {
         {
           isLoading,
           moviesList: action.payload,
-          errorMessage: ''
+          errorMessage: '',
         });
     }
     case MOVIES_ACTIONS.CHANGE_FAVOURITE_MOVIE: {
@@ -29,13 +29,11 @@ export default function moviesData(state = initialState, action) {
       let favourites;
 
       if (state.favourites.includes(movieId)) {
-        favourites = state.favourites.filter(entry => {
-          return entry !== movieId;
-        });
+        favourites = state.favourites.filter((entry) => entry !== movieId);
       } else {
         favourites = state.favourites.concat([action.payload]);
       }
-      
+
       return change(state, { favourites });
     }
     case MOVIES_ACTIONS.MOVIES_INFORMATION_SUCCESS: {
@@ -44,7 +42,7 @@ export default function moviesData(state = initialState, action) {
         {
           isLoading,
           movieData: action.payload,
-          errorMessage: ''
+          errorMessage: '',
         });
     }
     case MOVIES_ACTIONS.MOVIES_SEARCH_ERROR: {
@@ -52,7 +50,7 @@ export default function moviesData(state = initialState, action) {
         isLoading: false,
         hasErrored: true,
         errorMessage: action.payload,
-        moviesList: []
+        moviesList: [],
       });
     }
     case MOVIES_ACTIONS.CLEAR_MOVIE_SEARCH: {

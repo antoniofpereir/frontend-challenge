@@ -18,7 +18,7 @@ const initialState = loadState(REDUX_LOCAL_STORAGE_NAME);
 const store = createStore(
   rootReducer,
   initialState,
-  enhancers,  
+  enhancers,
 );
 
 store.subscribe(throttle(() => {

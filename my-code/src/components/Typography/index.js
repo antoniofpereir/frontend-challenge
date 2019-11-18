@@ -18,7 +18,7 @@ const colors = [
   'negative',
   'highlight',
   'disabled',
-]
+];
 
 function Typography({ children, variant, color }) {
   return (
@@ -31,11 +31,12 @@ function Typography({ children, variant, color }) {
 Typography.defaultProps = {
   variant: 'regular1',
   color: 'default',
-}
+};
 
 Typography.propTypes = {
   variant: PropTypes.oneOf(variants),
   color: PropTypes.oneOf(colors),
-}
+  children: PropTypes.node.isRequired,
+};
 
 export default Typography;

@@ -25,34 +25,34 @@ module.exports = {
             loader: 'css-loader',
             options: {
               importLoaders: 1,
-              modules: true
-            }
-          }
-        ]
+              modules: true,
+            },
+          },
+        ],
       },
       {
         test: /\.svg$/,
         use: [
-          {loader: 'file-loader'},
+          { loader: 'file-loader' },
           {
             loader: 'svgo-loader',
             options: {
               plugins: [
-                {removeTitle: true},
-                {convertColors: {shorthex: false}},
-                {convertPathData: false}
-              ]
-            }
-          }
-        ]
+                { removeTitle: true },
+                { convertColors: { shorthex: false } },
+                { convertPathData: false },
+              ],
+            },
+          },
+        ],
       },
       {
         test: /\.(jpe?g|png|gif)$/i,
         use: [
           'url-loader?limit=10000',
-          'img-loader'
-        ]
-      }
+          'img-loader',
+        ],
+      },
     ],
   },
   plugins: [

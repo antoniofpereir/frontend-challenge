@@ -12,7 +12,7 @@ import { MESSAGES } from '../../language/en';
 function EmptyState() {
   return (
     <div className={styles.container}>
-      <img src={emptyImg} className={styles.emptyImg}/>
+      <img src={emptyImg} alt="search" className={styles.emptyImg} />
       <Typography variant="medium1">
         {MESSAGES.EMPTY_TITLE}
       </Typography>

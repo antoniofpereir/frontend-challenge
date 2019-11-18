@@ -14,7 +14,7 @@ class MoviePage extends React.Component {
     const id = this.props.location.movieId
       ? this.props.location.movieId
       : this.props.movieData.imdbID;
-    
+
     this.props.getMovieInformation(id);
   }
 
@@ -25,12 +25,12 @@ class MoviePage extends React.Component {
   }
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   movieData: state.moviesData.movieData,
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  getMovieInformation: movieId => dispatch(getMovieInformation(movieId)),
+  getMovieInformation: (movieId) => dispatch(getMovieInformation(movieId)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(MoviePage);

@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 /* components */
@@ -23,7 +24,7 @@ class MovieSearch extends React.Component {
     super(props);
     this.state = {
       searchValue: '',
-    }
+    };
     this.props.clearMoviesSearch();
     this.props.clearSelectedMovie();
   }
@@ -40,33 +41,36 @@ class MovieSearch extends React.Component {
   handleMovieSelect = (movieId) => {
     this.props.history.push({
       pathname: '/movie',
-      movieId
-    })
+      movieId,
+    });
   }
 
   handleSetFavourite = (movieId) => {
     this.props.setFavourite(movieId);
   }
 
-  renderMoviePreview = () => this.props.moviesData.moviesList.map(moviePreviewData => {
+  renderMoviePreview = () => this.props.moviesData.moviesList.map((moviePreviewData) => {
     const handleSelectId = () => this.handleMovieSelect(moviePreviewData.imdbID);
     const handleSetFavourite = () => this.handleSetFavourite(moviePreviewData.imdbID);
-    return <MoviePreview
-      key={moviePreviewData.imdbID}
-      moviePreviewData={moviePreviewData}
-      handleMovieSelect={handleSelectId}
-      handleSetFavourite={handleSetFavourite}
-    />;
+    return (
+      <MoviePreview
+        key={moviePreviewData.imdbID}
+        moviePreviewData={moviePreviewData}
+        handleMovieSelect={handleSelectId}
+        handleSetFavourite={handleSetFavourite}
+      />
+    );
   });
 
   renderSearchResults = () => {
+    const { moviesData: { hasErrored, moviesList, errorMessage } } = this.props;
     let searchResults;
 
-    if (this.props.moviesData.hasErrored) {
-      searchResults = this.props.moviesData.errorMessage;
+    if (hasErrored) {
+      searchResults = errorMessage;
     }
 
-    if (this.props.moviesData.moviesList.length) {
+    if (moviesList.length) {
       searchResults = this.renderMoviePreview();
     } else {
       searchResults = <EmptyState />;
@@ -80,16 +84,17 @@ class MovieSearch extends React.Component {
   }
 
   render() {
+    const { searchValue } = this.state;
+
     return (
       <div className={styles.container}>
         <form id="movie-search-form" action="" onSubmit={this.handleSearchSubmit}>
           <input
             type="text"
             name="title"
-            value={this.state.searchValue}
+            value={searchValue}
             placeholder={MESSAGES.SEARCH_MOVIES}
             required
-            autoFocus
             onChange={this.handleChange}
           />
         </form>
@@ -99,15 +104,27 @@ class MovieSearch extends React.Component {
   }
 }
 
-const mapStateToProps = state => ({
+MovieSearch.propTypes = {
+  moviesData: PropTypes.shape({
+    isLoading: PropTypes.bool,
+    moviesList: PropTypes.array,
+    movieData: PropTypes.shape(),
+    hasErrored: PropTypes.bool,
+    errorMessage: PropTypes.string,
+    favourites: PropTypes.array,
+  }).isRequired,
+  setFavourite: PropTypes.func.isRequired,
+};
+
+const mapStateToProps = (state) => ({
   moviesData: state.moviesData,
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  searchMovie: searchValue => dispatch(searchMovie(searchValue)),
+  searchMovie: (searchValue) => dispatch(searchMovie(searchValue)),
   clearMoviesSearch: () => dispatch(clearMoviesSearch()),
   clearSelectedMovie: () => dispatch(clearSelectedMovie()),
-  setFavourite: movieId => dispatch(setFavourite(movieId)),
+  setFavourite: (movieId) => dispatch(setFavourite(movieId)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(MovieSearch);

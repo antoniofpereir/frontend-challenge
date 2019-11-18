@@ -5,8 +5,8 @@ import { Router, Route } from 'react-router-dom';
 import styles from './App.module.css';
 
 /* components */
-import MovieSearch from '../containers/MovieSearch';
-import MoviePage from '../containers/MoviePage';
+import MovieSearch from './MovieSearch';
+import MoviePage from './MoviePage';
 import Page from '../components/Page';
 
 /* utils */

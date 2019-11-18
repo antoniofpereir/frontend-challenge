@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 /* styles */
 import styles from './Page.module.css';
@@ -13,11 +14,15 @@ function Page({ children }) {
   return (
     <div className={styles.container}>
       <div className={styles.innerContainer}>
-      <img src={logo} className={styles.logo} onClick={goToHomePage} />
+        <img src={logo} alt="page-logo" className={styles.logo} onClick={goToHomePage} />
         {children}
       </div>
     </div>
   );
 }
+
+Page.propTypes = {
+  children: PropTypes.node.isRequired,
+};
 
 export default Page;

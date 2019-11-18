@@ -7,3 +7,11 @@
 .innerContainer {
   width: 70vw;
 }
+
+.logo {
+  width: 140px;
+  height: 40px;
+  cursor: pointer;
+  align-self: flex-start;
+  padding-bottom: 16px;
+}

@@ -11,7 +11,11 @@ class MoviePage extends React.Component {
   handleGoBack = () => history.goBack();
 
   componentDidMount() {
-    this.props.getMovieInformation(this.props.location.movieId);
+    const id = this.props.location.movieId
+      ? this.props.location.movieId
+      : this.props.movieData.imdbID;
+    
+    this.props.getMovieInformation(id);
   }
 
   render() {

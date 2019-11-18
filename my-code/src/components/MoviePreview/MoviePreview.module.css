@@ -1,10 +1,49 @@
 .container {
-  padding: 8px
+  margin: 8px;
+  position: relative
 }
 
 .previewImg {
   border-radius: 4px;
   width: 150px;
   height: 222px;
+}
+
+.container:hover {
   cursor: pointer;
+}
+
+.container:hover .previewImg {
+  opacity: 0.5;
+  transition: .5s ease;
+}
+
+.heart {
+  height: 24px;
+  width: 24px;
+  align-self: flex-end;
+}
+
+.overlay {
+  position: absolute;
+  transition: .5s ease;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 8px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  opacity: 0;
+}
+
+.container:hover .overlay {
+  opacity: 1;
+}
+
+.textContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
 }

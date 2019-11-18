@@ -29,6 +29,29 @@ module.exports = {
             }
           }
         ]
+      },
+      {
+        test: /\.svg$/,
+        use: [
+          {loader: 'file-loader'},
+          {
+            loader: 'svgo-loader',
+            options: {
+              plugins: [
+                {removeTitle: true},
+                {convertColors: {shorthex: false}},
+                {convertPathData: false}
+              ]
+            }
+          }
+        ]
+      },
+      {
+        test: /\.(jpe?g|png|gif)$/i,
+        use: [
+          'url-loader?limit=10000',
+          'img-loader'
+        ]
       }
     ],
   },

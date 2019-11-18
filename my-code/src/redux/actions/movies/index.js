@@ -1,5 +1,11 @@
 import * as MOVIES_ACTIONS from './actionTypes';
 
+export function moviesReset() {
+  return {
+    type: MOVIES_ACTIONS.MOVIES_DATA_RESET
+  };
+}
+
 function moviesLoading() {
   return {
     type: MOVIES_ACTIONS.MOVIES_SEARCH_LOADING
@@ -27,13 +33,34 @@ function movieInformationSuccess(movieInformation) {
   };
 }
 
+export function setFavourite(movieId) {
+  return {
+    type: MOVIES_ACTIONS.CHANGE_FAVOURITE_MOVIE,
+    payload: movieId,
+  };
+}
+
+export function clearMoviesSearch() {
+  return {
+    type: MOVIES_ACTIONS.CLEAR_MOVIE_SEARCH,
+  };
+}
+
+export function clearSelectedMovie() {
+  return {
+    type: MOVIES_ACTIONS.CLEAR_SELECTED_MOVIE,
+  };
+}
+
 export function searchMovie(searchValue) {
-  return async function (dispatch, getState) {
+  return async function (dispatch, getState, omdbApiKey) {
     dispatch(moviesLoading());
-    const apiKey = getState().moviesData.omdbApiKey;
     try {
-      const response = await fetch(`http://www.omdbapi.com/?apikey=${apiKey}&s=${searchValue}`);
+      const response = await fetch(`http://www.omdbapi.com/?apikey=${omdbApiKey}&s=${searchValue}`);
       const responseJson = await response.json();
+      if (responseJson.Error) {
+        throw responseJson.Error;
+      }
       await dispatch(moviesSearchSuccess(responseJson.Search));
     } catch (error) {
       console.error(error);
@@ -43,11 +70,10 @@ export function searchMovie(searchValue) {
 }
 
 export function getMovieInformation(movieId) {
-  return async function (dispatch, getState) {
+  return async function (dispatch, getState, omdbApiKey) {
     dispatch(moviesLoading());
-    const apiKey = getState().moviesData.omdbApiKey;
     try {
-      const response = await fetch(`http://www.omdbapi.com/?apikey=${apiKey}&i=${movieId}`);
+      const response = await fetch(`http://www.omdbapi.com/?apikey=${omdbApiKey}&i=${movieId}`);
       const responseJson = await response.json();
       await dispatch(movieInformationSuccess(responseJson));
     } catch (error) {

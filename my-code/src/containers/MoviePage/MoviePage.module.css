@@ -1,0 +1,54 @@
+.contentContainer {
+  display: flex;
+}
+
+.informationContainer {
+  padding-right: 124px;
+}
+
+.ratingContainer {
+  display: flex;
+  justify-content: space-between;
+  max-width: 424px;
+  padding-top: 16px;
+  padding-bottom: 24px;
+}
+
+.cardsContainer {
+  display: flex;
+  flex-direction: column;
+  padding-top: 16px;
+  padding-bottom: 16px;
+}
+
+.bottomCards {
+  padding-top: 32px;
+  display: flex;
+}
+
+.poster {
+  height: auto;
+  width: 40vw;
+  border-radius: 12px;
+}
+
+@media screen and (max-width: 1000px) {
+  .contentContainer {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .poster {
+    min-width: 370px;
+  }
+
+  .informationContainer {
+    padding-right: 0px;
+  }
+}
+
+@media screen and (max-width: 520px) {
+  .poster {
+    display: none;
+  }
+}

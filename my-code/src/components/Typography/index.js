@@ -20,9 +20,11 @@ const colors = [
   'disabled',
 ];
 
-function Typography({ children, variant, color }) {
+function Typography({
+  children, variant, color, style,
+}) {
   return (
-    <div className={`${styles[variant]} ${styles[color]}`}>
+    <div className={`${styles[variant]} ${styles[color]} ${style}`}>
       {children}
     </div>
   );
@@ -31,12 +33,14 @@ function Typography({ children, variant, color }) {
 Typography.defaultProps = {
   variant: 'regular1',
   color: 'default',
+  style: '',
 };
 
 Typography.propTypes = {
   variant: PropTypes.oneOf(variants),
   color: PropTypes.oneOf(colors),
   children: PropTypes.node.isRequired,
+  style: PropTypes.string,
 };
 
 export default Typography;

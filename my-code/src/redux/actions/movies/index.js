@@ -53,7 +53,7 @@ export function clearSelectedMovie() {
 }
 
 export function searchMovie(searchValue) {
-  return async function (dispatch, getState, omdbApiKey) {
+  return async (dispatch, getState, omdbApiKey) => {
     dispatch(moviesLoading());
     try {
       const response = await fetch(`http://www.omdbapi.com/?apikey=${omdbApiKey}&s=${searchValue}`);
@@ -70,7 +70,7 @@ export function searchMovie(searchValue) {
 }
 
 export function getMovieInformation(movieId) {
-  return async function (dispatch, getState, omdbApiKey) {
+  return async (dispatch, getState, omdbApiKey) => {
     dispatch(moviesLoading());
     try {
       const response = await fetch(`http://www.omdbapi.com/?apikey=${omdbApiKey}&i=${movieId}`);

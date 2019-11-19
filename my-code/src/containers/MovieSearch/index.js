@@ -113,7 +113,13 @@ MovieSearch.propTypes = {
     errorMessage: PropTypes.string,
     favourites: PropTypes.array,
   }).isRequired,
+  searchMovie: PropTypes.func.isRequired,
   setFavourite: PropTypes.func.isRequired,
+  clearMoviesSearch: PropTypes.func.isRequired,
+  clearSelectedMovie: PropTypes.func.isRequired,
+  history: PropTypes.shape({
+    push: PropTypes.func,
+  }).isRequired,
 };
 
 const mapStateToProps = (state) => ({

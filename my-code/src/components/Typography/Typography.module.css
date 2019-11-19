@@ -2,7 +2,7 @@
   font-family: 'Roboto', sans-serif;
   font-size: 80px;
   font-weight: 700;
-  letter-spacing: 0.2;
+  letter-spacing: 0.2px;
   line-height: 88px;
 }
 
@@ -10,7 +10,7 @@
   font-family: 'Roboto', sans-serif;
   font-size: 24px;
   font-weight: 500;
-  letter-spacing: 0.2;
+  letter-spacing: 0.2px;
   line-height: 30px;
 }
 
@@ -18,7 +18,7 @@
   font-family: 'Roboto', sans-serif;
   font-size: 20px;
   font-weight: 500;
-  letter-spacing: 0.2;
+  letter-spacing: 0.2px;
   line-height: 28px;
 }
 
@@ -26,12 +26,12 @@
   font-family: 'Roboto', sans-serif;
   font-size: 16px;
   font-weight: 400;
-  letter-spacing: 0.16;
+  letter-spacing: 0.16px;
   line-height: 24px;
 }
 
 .default {
-  color: white;
+  color: #FFF;
 }
 
 .secondary {
@@ -39,11 +39,11 @@
 }
 
 .active {
-  color: cadetblue;
+  color: #2EC4B6;
 }
 
 .highlight {
-  color: orange;
+  color: #FF9F1C;
 }
 
 .disabled {
@@ -51,5 +51,5 @@
 }
 
 .negative {
-  color: red;
+  color: #FF4040;
 }

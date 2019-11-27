@@ -9,10 +9,14 @@ import AddButton from '../../components/AddButton';
 import Card from '../../components/Card';
 
 /* redux */
-import { getMovieInformation } from '../../redux/actions/movies';
+import {
+  getMovieInformation,
+  setFavourite,
+} from '../../redux/actions/movies';
 
 /* utils */
 import history from '../../utils/history';
+import isEmptyObject from '../../utils/isEmptyObject';
 
 /* styles */
 import styles from './MoviePage.module.css';
@@ -35,17 +39,17 @@ class MoviePage extends React.Component {
     return rottenTomatoesRatingInfo ? rottenTomatoesRatingInfo.Value : 'N/A';
   }
 
-  setFavourite = () => {
-    console.log('favourite: ', this.props.movieData.imdbID);
-  }
-
   buildCardItemsArray = (valuesString) => {
     const valuesArray = valuesString.split(', ');
 
     return valuesArray.map((value) => <Typography key={`card-${value}`} variant="regular1">{value}</Typography>);
   }
 
-  render() {
+  handleSetFavourite = () => {
+    this.props.setFavourite(this.props.movieData.imdbID);
+  }
+
+  renderItem = () => {
     const {
       Runtime,
       Title,
@@ -79,8 +83,8 @@ class MoviePage extends React.Component {
             <Rating source="rotten" rating={rottenTomatoesRating} />
             <AddButton
               text={MESSAGES.ADD_TO_FAVOURITES}
-              handler={this.setFavourite}
-              added={false}
+              handler={this.handleSetFavourite}
+              isFavourite={this.props.isFavourite}
             />
           </div>
           <div className={styles.cardsContainer}>
@@ -108,6 +112,14 @@ class MoviePage extends React.Component {
       </div>
     );
   }
+
+  render() {
+    if (this.props.isLoading || isEmptyObject(this.props.movieData)) {
+      return 'Loading...';
+    }
+
+    return this.renderItem();
+  }
 }
 
 MoviePage.defaultProps = {
@@ -122,14 +134,20 @@ MoviePage.propTypes = {
   location: PropTypes.shape({
     movieId: PropTypes.string,
   }),
+  isLoading: PropTypes.bool.isRequired,
+  setFavourite: PropTypes.func.isRequired,
+  isFavourite: PropTypes.bool.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   movieData: state.moviesData.movieData,
+  isLoading: state.moviesData.isLoading,
+  isFavourite: state.moviesData.favourites.includes(state.moviesData.movieData.imdbID),
 });
 
 const mapDispatchToProps = (dispatch) => ({
   getMovieInformation: (movieId) => dispatch(getMovieInformation(movieId)),
+  setFavourite: (movieId) => dispatch(setFavourite(movieId)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(MoviePage);

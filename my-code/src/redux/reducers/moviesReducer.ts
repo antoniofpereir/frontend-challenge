@@ -1,6 +1,14 @@
-import { MoviesReducerState } from './types';
-import { MoviesActionType, MoviesActionTypesEnum } from '../actions/movies/actionTypes';
+import { MoviesActionType, MoviesActionTypesEnum } from '../actions/movies/types';
 import change from '../../utils/immutable';
+
+interface MoviesReducerState {
+  isLoading: boolean;
+  moviesList: Array<object>;
+  movieData: object;
+  hasErrored: boolean;
+  errorMessage: string;
+  favourites: Array<string>;
+}
 
 const initialState: MoviesReducerState = {
   isLoading: false,
@@ -9,9 +17,9 @@ const initialState: MoviesReducerState = {
   hasErrored: false,
   errorMessage: '',
   favourites: [],
-}
+};
 
-export default function moviesData(state = initialState, action: MoviesActionType): MoviesReducerState {
+function moviesData(state = initialState, action: MoviesActionType): MoviesReducerState {
   switch (action.type) {
     case MoviesActionTypesEnum.MOVIES_SEARCH_LOADING: {
       return change(state, { isLoading: true });
@@ -71,3 +79,5 @@ export default function moviesData(state = initialState, action: MoviesActionTyp
       return state;
   }
 }
+
+export default moviesData;

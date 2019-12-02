@@ -24,7 +24,7 @@ Card.propTypes = {
   title: PropTypes.string.isRequired,
   body: PropTypes.oneOfType([
     PropTypes.string,
-    PropTypes.arrayOf(PropTypes.string),
+    PropTypes.arrayOf(PropTypes.node),
   ]).isRequired,
 };
 

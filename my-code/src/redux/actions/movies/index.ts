@@ -1,5 +1,5 @@
 import { ReduxThunkAction, ReduxThunkDispatch } from '../types';
-import { MoviesActionType, MoviesActionTypesEnum } from './actionTypes';
+import { MoviesActionType, MoviesActionTypesEnum } from './types';
 import { RootState } from '../../reducers';
 
 export function moviesReset(): MoviesActionType {
@@ -55,7 +55,10 @@ export function clearSelectedMovie(): MoviesActionType {
 }
 
 export function searchMovie(searchValue: string): ReduxThunkAction {
-  return async (dispatch, getState, omdbApiKey) => {
+  return async (
+    dispatch: ReduxThunkDispatch,
+    getState: () => RootState,
+    omdbApiKey: string): Promise<void> => {
     dispatch(moviesLoading());
     try {
       const response = await fetch(`http://www.omdbapi.com/?apikey=${omdbApiKey}&s=${searchValue}`);
@@ -63,7 +66,7 @@ export function searchMovie(searchValue: string): ReduxThunkAction {
       if (responseJson.Error) {
         throw responseJson.Error;
       }
-      await dispatch(moviesSearchSuccess(responseJson.Search));
+      dispatch(moviesSearchSuccess(responseJson.Search));
     } catch (error) {
       console.error(error);
       dispatch(moviesError(error));
@@ -72,12 +75,15 @@ export function searchMovie(searchValue: string): ReduxThunkAction {
 }
 
 export function getMovieInformation(movieId: string): ReduxThunkAction {
-  return async (dispatch, getState, omdbApiKey) => {
+  return async (
+    dispatch: ReduxThunkDispatch,
+    getState: () => RootState,
+    omdbApiKey: string): Promise<void> => {
     dispatch(moviesLoading());
     try {
       const response = await fetch(`http://www.omdbapi.com/?apikey=${omdbApiKey}&i=${movieId}`);
       const responseJson = await response.json();
-      await dispatch(movieInformationSuccess(responseJson));
+      dispatch(movieInformationSuccess(responseJson));
     } catch (error) {
       console.error(error);
       dispatch(moviesError(error));

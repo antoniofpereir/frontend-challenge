@@ -7,10 +7,17 @@ import { loadState, saveState } from '../utils/reduxPersist';
 
 const REDUX_LOCAL_STORAGE_NAME = 'moviesreduxstate';
 const omdbApiKey = process.env.OMDB_API_KEY;
-const enhancers = window.__REDUX_DEVTOOLS_EXTENSION__
+
+declare global {
+  interface Window {
+    __REDUX_DEVTOOLS_EXTENSION_COMPOSE__?: typeof compose;
+  }
+}
+
+const enhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ 
   ? compose(
     applyMiddleware(thunk.withExtraArgument(omdbApiKey)),
-    window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
+    window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__  && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__(),
   ) : applyMiddleware(thunk.withExtraArgument(omdbApiKey));
 
 const initialState = loadState(REDUX_LOCAL_STORAGE_NAME);

@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 
 /* components */
 import Typography from '../Typography';
@@ -9,7 +8,13 @@ import styles from './AddButton.module.css';
 import iconHeartFull from '../../../resources/icon-heart-full.svg';
 import iconHeartWhite from '../../../resources/icon-heart-white.svg';
 
-function AddButton({ text, handler, isFavourite }) {
+interface AddButtonProps {
+  text: string,
+  handler: () => void,
+  isFavourite: boolean,
+}
+
+const AddButton: React.FC<AddButtonProps> = ({ text, handler, isFavourite }: AddButtonProps) => {
   const iconHeart = isFavourite ? iconHeartFull : iconHeartWhite;
   return (
     <div className={styles.container} role="button" tabIndex={0} onClick={handler}>
@@ -24,11 +29,5 @@ function AddButton({ text, handler, isFavourite }) {
     </div>
   );
 }
-
-AddButton.propTypes = {
-  text: PropTypes.string.isRequired,
-  handler: PropTypes.func.isRequired,
-  isFavourite: PropTypes.bool.isRequired,
-};
 
 export default AddButton;

@@ -1,16 +1,44 @@
 import { MoviesActionType, MoviesActionTypesEnum } from '../actions/movies/types';
 import change from '../../utils/immutable';
 
-interface MoviesReducerState {
+export type RatingsTypes = {
+  Source: string,
+  Value: string,
+};
+
+export type MovieDataTypes = {
+  Runtime?: string,
+  Title?: string,
+  Year?: string,
+  Rated?: string,
+  imdbRating?: string,
+  Ratings?: Array<RatingsTypes>,
+  Plot?: string,
+  Actors?: string,
+  Genre?: string,
+  Director?: string,
+  Poster?: string,
+  imdbID?: string,
+};
+
+export type MoviesPreviewTypes = {
+  Poster: string,
+  Title: string
+  Type: string
+  Year: string
+  imdbID: string
+}
+
+export interface MoviesDataState {
   isLoading: boolean;
-  moviesList: Array<object>;
-  movieData: object;
+  moviesList: Array<MoviesPreviewTypes>;
+  movieData: MovieDataTypes;
   hasErrored: boolean;
   errorMessage: string;
   favourites: Array<string>;
 }
 
-const initialState: MoviesReducerState = {
+const initialState: MoviesDataState = {
   isLoading: false,
   moviesList: [],
   movieData: {},
@@ -19,7 +47,7 @@ const initialState: MoviesReducerState = {
   favourites: [],
 };
 
-function moviesData(state = initialState, action: MoviesActionType): MoviesReducerState {
+function moviesData(state = initialState, action: MoviesActionType): MoviesDataState {
   switch (action.type) {
     case MoviesActionTypesEnum.MOVIES_SEARCH_LOADING: {
       return change(state, { isLoading: true });
@@ -35,7 +63,7 @@ function moviesData(state = initialState, action: MoviesActionType): MoviesReduc
     }
     case MoviesActionTypesEnum.CHANGE_FAVOURITE_MOVIE: {
       const movieId = action.payload;
-      let favourites;
+      let favourites: string[];
 
       if (state.favourites.includes(movieId)) {
         favourites = state.favourites.filter((entry) => entry !== movieId);

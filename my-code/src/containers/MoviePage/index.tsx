@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 /* components */
@@ -13,6 +12,8 @@ import {
   getMovieInformation,
   setFavourite,
 } from '../../redux/actions/movies';
+import { MovieDataTypes, RatingsTypes } from '../../redux/reducers/moviesReducer';
+import { StoreState, StoreDispatch } from '../../redux';
 
 /* utils */
 import history from '../../utils/history';
@@ -23,10 +24,25 @@ import styles from './MoviePage.module.css';
 
 import { MESSAGES } from '../../language/en';
 
-class MoviePage extends React.Component {
+type LocationType = {
+  state: {
+    movieId: string,
+  }
+}
+
+interface MoviePageProps {
+  movieData: MovieDataTypes,
+  getMovieInformation: (id: string) => void,
+  setFavourite: (id: string) => void,
+  isLoading: boolean,
+  isFavourite: boolean,
+  location: LocationType
+}
+
+class MoviePage extends React.Component<MoviePageProps> {
   componentDidMount() {
-    const id = this.props.location.movieId
-      ? this.props.location.movieId
+    const id = this.props.location.state.movieId
+      ? this.props.location.state.movieId
       : this.props.movieData.imdbID;
 
     this.props.getMovieInformation(id);
@@ -34,15 +50,15 @@ class MoviePage extends React.Component {
 
   handleGoBack = () => history.goBack();
 
-  getRottenTomatoesRating = (ratings) => {
+  getRottenTomatoesRating = (ratings: Array<RatingsTypes>) => {
     const rottenTomatoesRatingInfo = ratings && ratings.find((item) => item.Source === 'Rotten Tomatoes');
     return rottenTomatoesRatingInfo ? rottenTomatoesRatingInfo.Value : 'N/A';
   }
 
-  buildCardItemsArray = (valuesString) => {
+  buildCardItemsArray = (valuesString: string) => {
     const valuesArray = valuesString.split(', ');
 
-    return valuesArray.map((value) => <Typography key={`card-${value}`} variant="regular1">{value}</Typography>);
+    return valuesArray.map((value: string) => <Typography key={`card-${value}`} variant="regular1">{value}</Typography>);
   }
 
   handleSetFavourite = () => {
@@ -122,32 +138,15 @@ class MoviePage extends React.Component {
   }
 }
 
-MoviePage.defaultProps = {
-  location: {
-    movieId: '',
-  },
-};
-
-MoviePage.propTypes = {
-  getMovieInformation: PropTypes.func.isRequired,
-  movieData: PropTypes.shape().isRequired,
-  location: PropTypes.shape({
-    movieId: PropTypes.string,
-  }),
-  isLoading: PropTypes.bool.isRequired,
-  setFavourite: PropTypes.func.isRequired,
-  isFavourite: PropTypes.bool.isRequired,
-};
-
-const mapStateToProps = (state) => ({
+const mapStateToProps = (state: StoreState) => ({
   movieData: state.moviesData.movieData,
   isLoading: state.moviesData.isLoading,
   isFavourite: state.moviesData.favourites.includes(state.moviesData.movieData.imdbID),
 });
 
-const mapDispatchToProps = (dispatch) => ({
-  getMovieInformation: (movieId) => dispatch(getMovieInformation(movieId)),
-  setFavourite: (movieId) => dispatch(setFavourite(movieId)),
+const mapDispatchToProps = (dispatch: StoreDispatch) => ({
+  getMovieInformation: (movieId: string) => dispatch(getMovieInformation(movieId)),
+  setFavourite: (movieId: string) => dispatch(setFavourite(movieId)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(MoviePage);

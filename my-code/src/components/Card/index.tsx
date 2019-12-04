@@ -7,7 +7,12 @@ import Typography from '../Typography';
 /* styles */
 import styles from './Card.module.css';
 
-function Card({ title, body }) {
+interface CardProps {
+  title: string,
+  body: string | React.ReactNode,
+}
+
+const Card: React.FC<CardProps> = ({ title, body }: CardProps) => {
   return (
     <div className={styles.container}>
       <Typography variant="regular1" color="secondary" style={`${styles.title}`}>

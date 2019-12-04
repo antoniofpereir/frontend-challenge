@@ -1,6 +1,6 @@
 /* eslint-disable no-underscore-dangle */
 import thunk from 'redux-thunk';
-import { createStore, applyMiddleware, compose } from 'redux';
+import { createStore, applyMiddleware, compose, Store } from 'redux';
 import throttle from 'lodash.throttle';
 import rootReducer from './reducers';
 import { loadState, saveState } from '../utils/reduxPersist';
@@ -31,5 +31,9 @@ const store = createStore(
 store.subscribe(throttle(() => {
   saveState(REDUX_LOCAL_STORAGE_NAME, store.getState());
 }, 1000));
+
+export type StoreDispatch = typeof store.dispatch;
+
+export type StoreState = ReturnType<typeof rootReducer>;
 
 export default store;

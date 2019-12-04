@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 
 /* styles */
 import styles from './Page.module.css';
@@ -8,7 +7,11 @@ import logo from '../../../resources/logo.svg';
 /* utils */
 import history from '../../utils/history';
 
-function Page({ children }) {
+interface PageProps {
+  children: React.ReactNode,
+}
+
+const Page: React.FC<PageProps> = ({ children }: PageProps) => {
   const goToHomePage = () => history.push('/');
 
   return (
@@ -20,9 +23,5 @@ function Page({ children }) {
     </div>
   );
 }
-
-Page.propTypes = {
-  children: PropTypes.node.isRequired,
-};
 
 export default Page;

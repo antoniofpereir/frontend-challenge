@@ -5,14 +5,14 @@ import { Router, Route } from 'react-router-dom';
 import styles from './App.module.css';
 
 /* components */
-import MovieSearch from './MovieSearch';
-import MoviePage from './MoviePage';
-import Page from '../components/Page';
+import MovieSearch from '../MovieSearch';
+import MoviePage from '../MoviePage';
+import Page from '../../components/Page';
 
 /* utils */
-import history from '../utils/history';
+import history from '../../utils/history';
 
-function App() {
+const App: React.FC = () => {
   return (
     <div className={styles.container}>
       <Page>

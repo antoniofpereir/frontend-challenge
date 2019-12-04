@@ -18,15 +18,16 @@ module.exports = {
         },
       },
       {
-        test: /\.css$/,
+        test: /\.css$/i,
+        include: path.resolve(__dirname, 'src'),
         use: [
           'style-loader',
           {
+            loader: '@teamsupercell/typings-for-css-modules-loader',
+          },
+          {
             loader: 'css-loader',
-            options: {
-              importLoaders: 1,
-              modules: true,
-            },
+            options: { modules: true },
           },
         ],
       },
@@ -56,7 +57,7 @@ module.exports = {
     ],
   },
   resolve: {
-    extensions: ['.ts', '.js', '.json'],
+    extensions: ['.tsx', '.ts', '.js', '.json'],
   },
   plugins: [
     new HtmlWebPackPlugin({

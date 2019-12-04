@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
 
 /* styles */
@@ -12,7 +11,29 @@ import Typography from '../Typography';
 
 const isFavouriteSelector = (imdbID) => (state) => state.moviesData.favourites.includes(imdbID);
 
-function MoviePreview({ moviePreviewData, handleMovieSelect, handleSetFavourite }) {
+interface MoviePreviewDataType {
+  Poster: string,
+  Title: string,
+  imdbID: string,
+  Year: string,
+}
+
+interface MoviePreviewProps {
+  moviePreviewData: MoviePreviewDataType,
+  handleMovieSelect: () => void,
+  handleSetFavourite: () => void,
+}
+
+const defaultMovieData: MoviePreviewDataType = {
+  Poster: '',
+  Title: '',
+  imdbID: '',
+  Year: '',
+}
+
+const MoviePreview: React.FC<MoviePreviewProps> = (
+  { moviePreviewData = defaultMovieData, handleMovieSelect, handleSetFavourite }: MoviePreviewProps
+) => {
   const isFavourite = useSelector(isFavouriteSelector(moviePreviewData.imdbID));
   const iconHeart = isFavourite ? iconHeartFull : iconHeartWhite;
 
@@ -43,24 +64,5 @@ function MoviePreview({ moviePreviewData, handleMovieSelect, handleSetFavourite 
   );
 }
 
-MoviePreview.defaultProps = {
-  moviePreviewData: {
-    Poster: '',
-    Title: '',
-    imdbID: '',
-    Year: '',
-  },
-};
-
-MoviePreview.propTypes = {
-  moviePreviewData: PropTypes.shape({
-    Poster: PropTypes.string,
-    Title: PropTypes.string,
-    imdbID: PropTypes.string,
-    Year: PropTypes.string,
-  }),
-  handleMovieSelect: PropTypes.func.isRequired,
-  handleSetFavourite: PropTypes.func.isRequired,
-};
 
 export default MoviePreview;

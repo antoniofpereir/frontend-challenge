@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { RouteComponentProps } from 'react-router-dom';
 
 /* components */
 import MoviePreview from '../../components/MoviePreview';
@@ -12,6 +13,8 @@ import {
   clearSelectedMovie,
   setFavourite,
 } from '../../redux/actions/movies';
+import { MoviesDataState } from '../../redux/reducers/moviesReducer';
+import { StoreState, StoreDispatch } from '../../redux';
 
 /* styles */
 import styles from './MovieSearch.module.css';
@@ -19,7 +22,19 @@ import EmptyState from '../../components/EmptyState';
 
 import { MESSAGES } from '../../language/en';
 
-class MovieSearch extends React.Component {
+interface MovieSearchProps extends RouteComponentProps<{ movieId: string }> {
+  moviesData: MoviesDataState,
+  searchMovie: (searchValue: string) => void,
+  setFavourite: (id: string) => void,
+  clearMoviesSearch: () => void,
+  clearSelectedMovie: () => void,
+}
+
+interface MovieSearchState {
+  searchValue: string,
+}
+
+class MovieSearch extends React.Component<MovieSearchProps, MovieSearchState> {
   constructor(props) {
     super(props);
     this.state = {
@@ -38,10 +53,12 @@ class MovieSearch extends React.Component {
     this.setState({ searchValue: event.target.value });
   }
 
-  handleMovieSelect = (movieId) => {
+  handleMovieSelect = (movieId: string) => {
     this.props.history.push({
       pathname: '/movie',
-      movieId,
+      state: {
+        movieId,
+      },
     });
   }
 
@@ -104,33 +121,15 @@ class MovieSearch extends React.Component {
   }
 }
 
-MovieSearch.propTypes = {
-  moviesData: PropTypes.shape({
-    isLoading: PropTypes.bool,
-    moviesList: PropTypes.array,
-    movieData: PropTypes.shape(),
-    hasErrored: PropTypes.bool,
-    errorMessage: PropTypes.string,
-    favourites: PropTypes.array,
-  }).isRequired,
-  searchMovie: PropTypes.func.isRequired,
-  setFavourite: PropTypes.func.isRequired,
-  clearMoviesSearch: PropTypes.func.isRequired,
-  clearSelectedMovie: PropTypes.func.isRequired,
-  history: PropTypes.shape({
-    push: PropTypes.func,
-  }).isRequired,
-};
-
-const mapStateToProps = (state) => ({
+const mapStateToProps = (state: StoreState) => ({
   moviesData: state.moviesData,
 });
 
-const mapDispatchToProps = (dispatch) => ({
-  searchMovie: (searchValue) => dispatch(searchMovie(searchValue)),
+const mapDispatchToProps = (dispatch: StoreDispatch) => ({
+  searchMovie: (searchValue: string) => dispatch(searchMovie(searchValue)),
   clearMoviesSearch: () => dispatch(clearMoviesSearch()),
   clearSelectedMovie: () => dispatch(clearSelectedMovie()),
-  setFavourite: (movieId) => dispatch(setFavourite(movieId)),
+  setFavourite: (movieId: string) => dispatch(setFavourite(movieId)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(MovieSearch);

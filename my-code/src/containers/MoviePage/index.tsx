@@ -40,6 +40,12 @@ interface MoviePageProps {
 }
 
 class MoviePage extends React.Component<MoviePageProps> {
+  static defaultProps = {
+    location: {
+      state: '',
+    }
+  }
+  
   componentDidMount() {
     const id = this.props.location.state.movieId
       ? this.props.location.state.movieId

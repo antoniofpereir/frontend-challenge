@@ -1,6 +1,6 @@
 import { ReduxThunkAction, ReduxThunkDispatch } from '../types';
 import { MoviesActionType, MoviesActionTypesEnum } from './types';
-import { RootState } from '../../reducers';
+import { StoreState } from '../../';
 
 export function moviesReset(): MoviesActionType {
   return {
@@ -57,7 +57,7 @@ export function clearSelectedMovie(): MoviesActionType {
 export function searchMovie(searchValue: string): ReduxThunkAction {
   return async (
     dispatch: ReduxThunkDispatch,
-    getState: () => RootState,
+    getState: () => StoreState,
     omdbApiKey: string): Promise<void> => {
     dispatch(moviesLoading());
     try {
@@ -77,7 +77,7 @@ export function searchMovie(searchValue: string): ReduxThunkAction {
 export function getMovieInformation(movieId: string): ReduxThunkAction {
   return async (
     dispatch: ReduxThunkDispatch,
-    getState: () => RootState,
+    getState: () => StoreState,
     omdbApiKey: string): Promise<void> => {
     dispatch(moviesLoading());
     try {

@@ -1,6 +1,6 @@
 import { ThunkAction, ThunkDispatch } from 'redux-thunk';
 import { AnyAction } from 'redux';
-import { RootState } from '../reducers';
+import { StoreState } from '../';
 
-export type ReduxThunkAction = ThunkAction<void, RootState, null, AnyAction>;
+export type ReduxThunkAction = ThunkAction<void, StoreState, null, AnyAction>;
 export type ReduxThunkDispatch = ThunkDispatch<{}, {}, AnyAction>;
